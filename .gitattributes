@@ -7,7 +7,7 @@
 # Default to auto-normalized line endings.
 * text=auto
 # Code
-*.cs text diff=csharp
+#*.cs text diff=csharp
 # Unity Text Assets
 *.meta unityyaml
 *.unity unityyaml
