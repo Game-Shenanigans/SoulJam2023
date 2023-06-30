@@ -41,7 +41,8 @@ namespace RPG.Stats
             OnDeath?.Invoke();
 
             // Destroy the game object
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         public float GetCurrentHealth()
