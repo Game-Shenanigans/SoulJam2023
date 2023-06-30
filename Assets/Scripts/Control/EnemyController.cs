@@ -79,7 +79,7 @@ namespace RPG.Control
                     state = State.Chase;
                     directlyAlerted = true;
                 }
-                else if (IsChasingEnemyNearby())
+                else if (IsChasingEnemyNearby() && target != null)
                     state = State.Chase;
                 else
                     state = State.Wander;
@@ -108,8 +108,9 @@ namespace RPG.Control
                 Vector3 targetPosition = transform.position + wanderDirection * wanderRadius;
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
 
-                if (target != null && Vector3.Distance(target.position, transform.position) < chaseDistance)
-                    state = State.Chase;
+                if (target != null)
+                    if (Vector3.Distance(target.position, transform.position) < chaseDistance)
+                        state = State.Chase;
 
                 yield return null;
             }
@@ -123,6 +124,13 @@ namespace RPG.Control
                 {
                     transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
 
+                    if (Vector3.Distance(target.position, transform.position) > chaseDistance)
+                    {
+                        state = State.Wander;
+                        directlyAlerted = false;  // Reset the flag when the enemy stops chasing
+                        yield return null;
+                    }
+
                     if (Vector3.Distance(target.position, transform.position) <= chaseDistance)
                     {
                         directlyAlerted = true;
@@ -135,11 +143,7 @@ namespace RPG.Control
                         }
                     }
 
-                    if (Vector3.Distance(target.position, transform.position) > chaseDistance)
-                    {
-                        state = State.Wander;
-                        directlyAlerted = false;  // Reset the flag when the enemy stops chasing
-                    }
+
                 }
                 AlertNearbyEnemies();
 
