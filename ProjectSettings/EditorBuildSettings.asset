@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Underworld.unity
     guid: 3c3a587a6b17f694193677f70d990c6a
+  - enabled: 1
+    path: Assets/Scenes/LifeScene.unity
+    guid: 7e4c38b9800bb224eb304c6653931f24
   m_configObjects: {}
